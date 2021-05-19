@@ -24,8 +24,12 @@ const raitingsStore = {
       root: true,
     },
     async fetchRaitings({commit}){
+      try {
       const response = await axios.get();
-      commit("RAITINGS", response.data.result);
+      commit("RAITINGS", response.data.result);}
+      catch(error){
+        alert(error);
+      }
     }
   },
 };

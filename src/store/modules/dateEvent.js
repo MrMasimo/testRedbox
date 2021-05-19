@@ -24,6 +24,7 @@ const dateEventStore = {
     addDateEvent({ getters, commit}, date = {}){
       const {getDateEvent} = getters;
       const lastDate = JSON.parse(JSON.stringify(getDateEvent));
+      /* Примитивный хеш id */
       let id = Math.round(Math.random()*1000000);
 
       let result = Object.keys(date).reduce((acc,item) => {
@@ -36,11 +37,17 @@ const dateEventStore = {
       commit("TOGGLEDATE" , true);
     },
 
-    removeDateEvent({getters, commit}, id){
+    removeDateEvent({getters, commit}, id=null){
       const {getDateEvent} = getters;
+      if (id === null)
+        commit("DATEEVENT", {});
+      else {
+      
       const lastDate = JSON.parse(JSON.stringify(getDateEvent));
       delete lastDate[id];
       commit("DATEEVENT", lastDate);
+      }
+
       if (!Object.keys(getDateEvent).length)
         commit("TOGGLEDATE" , false);
     },
